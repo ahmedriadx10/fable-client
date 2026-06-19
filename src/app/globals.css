@@ -1,6 +1,48 @@
 @import "tailwindcss";
 @import "@heroui/styles";
 
+:root {
+  /* Primary Colors */
+  --color-primary: #6d28d9;
+  --color-primary-light: #8b5cf6;
+  --color-primary-lighter: #f3e8ff;
+
+  /* Accent & Secondary */
+  --color-accent: #f59e0b;
+  --color-secondary-blue: #3b82f6;
+  --color-secondary-cyan: #06b6d4;
+  --color-secondary-sky: #0ea5e9;
+
+  /* Background & Surface */
+  --color-bg: #fafafa;
+  --color-surface: #ffffff;
+
+  /* Text Colors */
+  --color-text-primary: #111827;
+  --color-text-secondary: #6b7280;
+
+  /* Borders */
+  --color-border: #e5e7eb;
+  --color-border-light: #faf5ff;
+
+  /* Status Colors */
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  /* Dashboard Card Icon Colors */
+  --color-icon-reader-books: #3b82f6;
+  --color-icon-reader-bookmarks: #6d28d9;
+  --color-icon-reader-history: #06b6d4;
+  --color-icon-writer-books: #6d28d9;
+  --color-icon-writer-sales: #f59e0b;
+  --color-icon-writer-revenue: #22c55e;
+  --color-icon-admin-users: #6d28d9;
+  --color-icon-admin-writers: #8b5cf6;
+  --color-icon-admin-revenue: #f59e0b;
+  --color-icon-admin-sales: #22c55e;
+}
 /*
 
 Palette 1 — Premium Reader Experience (Recommended ⭐)

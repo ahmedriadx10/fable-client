@@ -8,37 +8,76 @@ import {
   Label,
   TextField,
   FieldError,
+  Spinner,
 } from "@heroui/react";
 import { FcGoogle } from "react-icons/fc";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
+import { authClient } from "@/lib/auth-client";
+import Link from "next/link";
+import toast from "react-hot-toast";
+import { error } from "better-auth/api";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const router = useRouter();
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = formData;
-    
+
     console.log("Login Data Submitted:", { email, password });
 
-    setFormData({
-      email: "",
-      password: "",
+    const result = await authClient.signIn.email(
+      {
+        email,
+        password,
+      },
+      {
+        onRequest: () => {
+          setLoading(true);
+        },
+        onSuccess: () => {
+          toast.success("Login successful");
+          setLoading(false);
+          setFormData({
+            email: "",
+            password: "",
+          });
+          router.push("/");
+        },
+      },
+    );
+
+    if (result?.error) {
+      toast.error(result?.error?.message);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    const result = await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/",
     });
+
+    if (result?.error) {
+      return toast.error(
+        result?.error?.message || "Google sign-in failed try again",
+      );
+    }
   };
 
   return (
     <div className="space-y-8">
-
       <div>
         <h2 className="text-3xl font-bold tracking-tight text-(--color-text-primary)">
           Sign In
@@ -48,10 +87,7 @@ const LoginForm = () => {
         </p>
       </div>
 
-
       <Form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-        
-
         <TextField
           isRequired
           name="email"
@@ -73,11 +109,10 @@ const LoginForm = () => {
           <FieldError />
         </TextField>
 
-
         <TextField
           isRequired
           name="password"
-           validate={(value) => {
+          validate={(value) => {
             if (value.length < 6) {
               return "Password must be at least 6 characters";
             }
@@ -93,9 +128,8 @@ const LoginForm = () => {
         >
           <div className="flex items-center justify-between">
             <Label>Password</Label>
-            
           </div>
-          
+
           <div className="relative flex items-center">
             <Input
               placeholder="••••••••"
@@ -108,7 +142,11 @@ const LoginForm = () => {
               onClick={() => setShowPassword(!showPassword)}
               className="absolute right-3 text-slate-400 hover:text-slate-600 focus:outline-none"
             >
-              {showPassword ? <FaRegEyeSlash size={16} /> : <FaRegEye size={16} />}
+              {showPassword ? (
+                <FaRegEyeSlash size={16} />
+              ) : (
+                <FaRegEye size={16} />
+              )}
             </button>
           </div>
           <FieldError />
@@ -121,7 +159,7 @@ const LoginForm = () => {
             fullWidth
             className="mt-5 w-full bg-(--color-primary) text-white font-semibold text-sm h-10 rounded-xl flex items-center justify-center gap-2 hover:bg-(--color-primary-light) transition-colors shadow-md cursor-pointer"
           >
-            Login
+            {loading ? <Spinner color="current" /> : "Sign Up"}
           </Button>
         </div>
       </Form>
@@ -138,6 +176,7 @@ const LoginForm = () => {
       <Button
         variant="bordered"
         className="w-full text-(--color-text-primary) border border-(--color-border) bg-(--color-surface) py-2 font-semibold text-sm h-10 rounded-xl flex items-center justify-center gap-2 cursor-pointer"
+        onPress={handleGoogleSignIn}
       >
         <FcGoogle />
         Continue with Google
@@ -146,12 +185,12 @@ const LoginForm = () => {
       {/* রেজিস্টার লিংক */}
       <p className="text-center text-sm text-slate-600">
         Don't have an account?{" "}
-        <a
+        <Link
           href="/register"
           className="font-semibold text-(--color-primary) hover:underline"
         >
           Create one
-        </a>
+        </Link>
       </p>
 
       {/* ফুটার লিংকসমূহ */}

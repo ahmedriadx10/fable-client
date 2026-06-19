@@ -21,8 +21,8 @@ import { useRouter } from "next/navigation";
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-const [loading,setLoading]=useState()
-const router=useRouter()
+  const [loading, setLoading] = useState();
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -35,58 +35,65 @@ const router=useRouter()
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-
-
-
   //form submission
-  const handleSubmit =async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const { name, email, image, password } = formData;
 
-const result=await authClient.signUp.email({
-name,email,password,image:image || 'https://cdn-icons-png.flaticon.com/512/8188/8188349.png'
+    const result = await authClient.signUp.email(
+      {
+        name,
+        email,
+        password,
+        image:
+          image || "https://cdn-icons-png.flaticon.com/512/8188/8188349.png",
+      },
+      {
+        onRequest: () => {
+          setLoading(true);
+        },
+        onSuccess: () => {
+          setLoading(false);
+          toast.success("Registration successful");
+          setFormData({
+            name: "",
+            email: "",
+            image: "",
+            password: "",
+            confirmPassword: "",
+          });
 
-},{
-onRequest:()=>{
-  setLoading(true)
-},
-onSuccess:()=>{
-setLoading(false)
-  toast.success('Registration successful')
-    setFormData({
-      name: "",
-      email: "",
-      image: "",
-      password: "",
-      confirmPassword: "",
-    });
+          router.push("/register/select-role");
+        },
+      },
+    );
 
-router.push('/register/select-role')
-}
-
-})
-
-
-if(result?.error){
-  setLoading(false)
-  toast.error(result?.error?.message || 'Registration failed please try again')
-}
-    
-
-
-
-
-
-
-
-
-
+    if (result?.error) {
+      setLoading(false);
+      toast.error(
+        result?.error?.message || "Registration failed please try again",
+      );
+    }
   };
+
+  const handleGoogleSignIn=async ()=>{
+
+    const result=await authClient.signIn.social({
+      provider:'google',
+   callbackURL:'/register/select-role'
+    })
+
+
+    if(result?.error){
+      toast.error(result?.error?.message || "Google sign-in failed try again")
+    }
+
+
+  }
 
   return (
     <div className="space-y-8">
-
       <div>
         <h2 className="text-3xl font-bold tracking-tight text-(--color-text-primary)">
           Create an account
@@ -96,9 +103,7 @@ if(result?.error){
         </p>
       </div>
 
-
       <Form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-
         <TextField isRequired name="name" type="text" minLength={3}>
           <Label>Full Name</Label>
           <Input
@@ -109,7 +114,6 @@ if(result?.error){
           />
           <FieldError />
         </TextField>
-
 
         <TextField
           isRequired
@@ -132,7 +136,6 @@ if(result?.error){
           <FieldError />
         </TextField>
 
-
         <TextField name="image" type="url">
           <Label>Image URL</Label>
           <Input
@@ -143,7 +146,6 @@ if(result?.error){
           />
           <FieldError />
         </TextField>
-
 
         <TextField
           isRequired
@@ -176,12 +178,15 @@ if(result?.error){
               onClick={() => setShowPassword(!showPassword)}
               className="absolute right-3 text-slate-400 hover:text-slate-600 focus:outline-none cursor-pointer"
             >
-              {showPassword ? <FaRegEyeSlash size={16} /> : <FaRegEye size={16} />}
+              {showPassword ? (
+                <FaRegEyeSlash size={16} />
+              ) : (
+                <FaRegEye size={16} />
+              )}
             </button>
           </div>
           <FieldError />
         </TextField>
-
 
         <TextField
           isRequired
@@ -217,12 +222,15 @@ if(result?.error){
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               className="absolute right-3 text-slate-400 hover:text-slate-600 focus:outline-none cursor-pointer"
             >
-              {showConfirmPassword ? <FaRegEyeSlash size={16} /> : <FaRegEye size={16} />}
+              {showConfirmPassword ? (
+                <FaRegEyeSlash size={16} />
+              ) : (
+                <FaRegEye size={16} />
+              )}
             </button>
           </div>
           <FieldError />
         </TextField>
-
 
         <div className="flex gap-2">
           <Button
@@ -230,12 +238,11 @@ if(result?.error){
             fullWidth
             className="mt-5 w-full bg-(--color-primary) text-white font-semibold text-sm h-10 rounded-xl flex items-center justify-center gap-2 hover:bg-(--color-primary-light) transition-colors shadow-md"
           >
-  {loading?     <Spinner color="current" /> :'Sign Up'}
+            {loading ? <Spinner color="current" /> : "Sign Up"}
           </Button>
         </div>
       </Form>
 
- 
       <div className="relative flex items-center justify-center">
         <div className="absolute w-full border-t border-slate-200"></div>
         <span className="relative bg-white px-3 text-xs uppercase text-slate-400 font-semibold tracking-wider">
@@ -243,15 +250,15 @@ if(result?.error){
         </span>
       </div>
 
-
       <Button
         variant="bordered"
         className="w-full text-(--color-text-primary) border border-(--color-border) bg-(--color-surface) py-2 font-semibold text-sm h-10 rounded-xl"
+      onPress={handleGoogleSignIn}
       >
+
         <FcGoogle />
         Continue with Google
       </Button>
-
 
       <p className="text-center text-sm text-slate-600">
         Already have an account?{" "}
@@ -259,7 +266,7 @@ if(result?.error){
           href="/login"
           className="font-semibold text-(--color-primary) hover:underline"
         >
-      Login
+          Login
         </Link>
       </p>
 

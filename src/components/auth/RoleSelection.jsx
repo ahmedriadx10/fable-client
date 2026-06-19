@@ -2,49 +2,57 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@heroui/react";
-import { ImBook } from "react-icons/im"; // রিডারের জন্য বই আইকন
-import { FiEdit3 } from "react-icons/fi"; // রাইটারের জন্য এডিট আইকন
-// import { authClient } from "@/lib/auth-client"; // তোমার প্রজেক্টের better-auth ক্লায়েন্ট পাথ অনুযায়ী ইমপোর্ট করবে
+import { Button, Spinner } from "@heroui/react";
+import { ImBook } from "react-icons/im"; 
+import { FiEdit3 } from "react-icons/fi"; 
+import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
+
 
 const RoleSelection = () => {
-  const [selectedRole, setSelectedRole] = useState("user"); // ডিফল্ট 'reader' সিলেক্ট থাকবে
+  const [selectedRole, setSelectedRole] = useState("user");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleConfirmSelection = async () => {
-    setLoading(true);
-    try {
-      // Better-Auth এর updateUser মেথড দিয়ে রোল সেট করা হচ্ছে
-      /* await authClient.updateUser({
+    const result = await authClient.updateUser(
+      {
         role: selectedRole,
-      }); 
-      */
-      
-      console.log("Updated Role to:", selectedRole);
-      router.push("/dashboard");
-    } catch (error) {
-      console.error("Failed to update role:", error);
-    } finally {
+      },
+      {
+        onRequest: () => {
+          setLoading(true);
+        },
+
+        onSuccess: () => {
+          setLoading(false);
+          toast.success("Role updated successfully");
+          router.push("/");
+        },
+      },
+    );
+
+    if (result?.error) {
       setLoading(false);
+      toast.error("Failed to update role try again");
     }
   };
 
   return (
     <div className="w-full flex flex-col items-center text-center space-y-10">
-      {/* হেডার ও সাবটাইটেল */}
+
       <div className="space-y-3">
         <h1 className="text-4xl font-extrabold tracking-tight text-slate-900">
           How will you use Fable?
         </h1>
         <p className="text-slate-500 max-w-lg mx-auto text-sm md:text-base leading-relaxed">
-          Personalize your experience. This will help us tailor your dashboard and recommendations.
+          Personalize your experience. This will help us tailor your dashboard
+          and recommendations.
         </p>
       </div>
 
       {/* custom role selection */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl">
-        
         {/* user card */}
         <div
           onClick={() => setSelectedRole("user")}
@@ -54,7 +62,6 @@ const RoleSelection = () => {
               : "border-(--color-border) hover:border-purple-200"
           }`}
         >
-
           <div className="absolute top-4 right-4 flex items-center justify-center">
             <div
               className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all ${
@@ -69,16 +76,15 @@ const RoleSelection = () => {
             </div>
           </div>
 
-
           <div className="flex flex-col items-center space-y-4 select-none">
-
             <div className="p-3 bg-[#6322d6] text-white rounded-xl shadow-inner">
               <ImBook className="text-2xl" />
             </div>
-            
+
             <h3 className="text-xl font-bold text-slate-800">Reader</h3>
             <p className="text-xs text-slate-500 leading-relaxed font-normal px-2">
-              I want to discover and read original stories. Explore curated collections and support your favorite authors.
+              I want to discover and read original stories. Explore curated
+              collections and support your favorite authors.
             </p>
           </div>
         </div>
@@ -92,7 +98,6 @@ const RoleSelection = () => {
               : "border(--color-border) hover:border-purple-200"
           }`}
         >
-
           <div className="absolute top-4 right-4 flex items-center justify-center">
             <div
               className={`w-4 h-4 rounded-full border flex items-center justify-center transition-all ${
@@ -107,9 +112,7 @@ const RoleSelection = () => {
             </div>
           </div>
 
-
           <div className="flex flex-col items-center space-y-4 select-none">
-
             <div
               className={`p-3 rounded-xl transition-colors ${
                 selectedRole === "writer"
@@ -119,16 +122,15 @@ const RoleSelection = () => {
             >
               <FiEdit3 className="text-2xl" />
             </div>
-            
+
             <h3 className="text-xl font-bold text-slate-800">Writer</h3>
             <p className="text-xs text-slate-500 leading-relaxed font-normal px-2">
-              I want to write, publish, and grow my audience. Access editorial tools, analytics, and monetization features.
+              I want to write, publish, and grow my audience. Access editorial
+              tools, analytics, and monetization features.
             </p>
           </div>
         </div>
-
       </div>
-
 
       <div className="w-full flex flex-col items-center space-y-4 pt-4">
         <Button
@@ -136,7 +138,7 @@ const RoleSelection = () => {
           isLoading={loading}
           className="w-full max-w-sm bg-[#6322d6] text-white font-semibold text-sm h-11 rounded-xl flex items-center justify-center transition-all hover:bg-[#521bc2] shadow-lg shadow-purple-500/10 cursor-pointer"
         >
-          Confirm Selection
+          {loading ? <Spinner color="current" /> : "Confirm Selection"}
         </Button>
         <p className="text-xs text-slate-400 font-medium tracking-wide">
           Please select your primary role to continue your journey with Fable.

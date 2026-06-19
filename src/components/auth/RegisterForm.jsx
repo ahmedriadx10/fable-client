@@ -9,14 +9,20 @@ import {
   TextField,
   FieldError,
   Description,
+  Spinner,
 } from "@heroui/react";
 import { FcGoogle } from "react-icons/fc";
 import { FaRegEye, FaRegEyeSlash, FaArrowRight } from "react-icons/fa6";
+import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+const [loading,setLoading]=useState()
+const router=useRouter()
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -29,11 +35,25 @@ const RegisterForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+
+
+
+  //form submission
+  const handleSubmit =async (e) => {
     e.preventDefault();
 
     const { name, email, image, password } = formData;
 
+const result=await authClient.signUp.email({
+name,email,password,image:image || 'https://cdn-icons-png.flaticon.com/512/8188/8188349.png'
+
+},{
+onRequest:()=>{
+  setLoading(true)
+},
+onSuccess:()=>{
+setLoading(false)
+  toast.success('Registration successful')
     setFormData({
       name: "",
       email: "",
@@ -41,7 +61,27 @@ const RegisterForm = () => {
       password: "",
       confirmPassword: "",
     });
-    console.log(formData);
+
+router.push('/register/select-role')
+}
+
+})
+
+
+if(result?.error){
+  setLoading(false)
+  toast.error(result?.error?.message || 'Registration failed please try again')
+}
+    
+
+
+
+
+
+
+
+
+
   };
 
   return (
@@ -190,7 +230,7 @@ const RegisterForm = () => {
             fullWidth
             className="mt-5 w-full bg-(--color-primary) text-white font-semibold text-sm h-10 rounded-xl flex items-center justify-center gap-2 hover:bg-(--color-primary-light) transition-colors shadow-md"
           >
-            Sign Up
+  {loading?     <Spinner color="current" /> :'Sign Up'}
           </Button>
         </div>
       </Form>
@@ -215,12 +255,12 @@ const RegisterForm = () => {
 
       <p className="text-center text-sm text-slate-600">
         Already have an account?{" "}
-        <a
+        <Link
           href="/login"
           className="font-semibold text-(--color-primary) hover:underline"
         >
-          Sign In
-        </a>
+      Login
+        </Link>
       </p>
 
       {/* ফুটার লিংকসমূহ */}

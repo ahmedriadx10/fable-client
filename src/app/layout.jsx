@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono, Inter, Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 
 //plus jakarta font for all types of headings and titles
@@ -37,7 +38,10 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${interFont.className} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">{children}
+    <Toaster />
+
+      </body>
     </html>
   );
 }

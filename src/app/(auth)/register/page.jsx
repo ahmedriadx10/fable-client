@@ -1,6 +1,13 @@
 import RegisterForm from "@/components/auth/RegisterForm";
 import { ImBook } from "react-icons/im"; // Fable লোগোর জন্য
 
+
+export const metadata = {
+  title: 'Register | Fable',
+  description: '...',
+}
+
+
 const RegisterPage = () => {
   return (
     <div className="grid min-h-screen grid-cols-1 md:grid-cols-2">

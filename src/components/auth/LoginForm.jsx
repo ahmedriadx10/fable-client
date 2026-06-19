@@ -17,6 +17,7 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import { error } from "better-auth/api";
 import { useRouter } from "next/navigation";
+import { roleBasedDashboardLink } from "@/lib/core/relevant-data";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -46,17 +47,19 @@ const LoginForm = () => {
         onRequest: () => {
           setLoading(true);
         },
-        onSuccess: () => {
-          toast.success("Login successful");
+      },
+    );
+
+    if(result?.data?.user){
+       toast.success("Login successful");
           setLoading(false);
           setFormData({
             email: "",
             password: "",
           });
-          router.push("/");
-        },
-      },
-    );
+          router.push(`${roleBasedDashboardLink[result?.data?.user?.role]}`);
+
+    }
 
     if (result?.error) {
       toast.error(result?.error?.message);

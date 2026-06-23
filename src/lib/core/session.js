@@ -1,5 +1,7 @@
+'use server'
 import { headers } from "next/headers"
 import { auth } from "../auth"
+
 
 export const getUserSession=async()=>{
 
@@ -7,7 +9,9 @@ export const getUserSession=async()=>{
     headers: await headers()
   })
 
-  console.log(session)
-  return session
+
+  return session?.user || null
 }
+
+
 

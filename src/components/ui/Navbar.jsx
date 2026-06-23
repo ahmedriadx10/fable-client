@@ -89,7 +89,7 @@ console.log(currentUser?.image)
         })}
       </div>
 
-      {/* ডান পাশ: ডেস্কটপ প্রোফাইল অথবা লগইন বাটন এবং মোবাইল হ্যামবার্গার ਟਗਲ */}
+      {/* ডান পাশ: ডেস্কটপ প্রোফাইল অথবা লগইন বাটন এবং মোবাইল হ্যামবার্গার*/}
       <div className="flex items-center gap-4">
         {/* ডেস্কটপ অথ কন্ডিশন */}
         <div className="hidden md:block">
@@ -99,7 +99,7 @@ console.log(currentUser?.image)
               <Dropdown.Trigger className="rounded-full cursor-pointer ring-2 ring-transparent hover:ring-[#6322d6]/30 transition-all">
                 <Avatar>
                   <Avatar.Image alt={currentUser.name} src={currentUser.image} referrerPolicy="no-referrer" />
-                  <Avatar.Fallback delayMs={600}>{currentUser.name.slice(0,2)}</Avatar.Fallback>
+                  <Avatar.Fallback delayMs={1000}>{currentUser.name.slice(0,2)}</Avatar.Fallback>
                 </Avatar>
               </Dropdown.Trigger>
               <Dropdown.Popover>
@@ -107,7 +107,7 @@ console.log(currentUser?.image)
                   <div className="flex items-center gap-2">
                     <Avatar size="sm">
                       <Avatar.Image alt={currentUser.name} src={currentUser.image} />
-                      <Avatar.Fallback delayMs={600}>{currentUser?.name.slice(0,2)}</Avatar.Fallback>
+                      <Avatar.Fallback delayMs={1000}>{currentUser?.name.slice(0,2)}</Avatar.Fallback>
                     </Avatar>
                     <div className="flex flex-col gap-0">
                       <p className="text-sm leading-5 font-semibold text-slate-800">
@@ -166,20 +166,21 @@ console.log(currentUser?.image)
         {/* মোবাইল ভিউ অ্যাভাটার (লগইন থাকলে হ্যামবার্গারের বামে দেখাবে) */}
         {currentUser && (
           <div className="block md:hidden">
-            <Avatar size="sm">
+            <Avatar >
               <Avatar.Image alt={currentUser.name} src={currentUser.image} />
-              <Avatar.Fallback delayMs={600}>{currentUser?.name?.slice(0,2)}</Avatar.Fallback>
+              <Avatar.Fallback delayMs={1000}>{currentUser?.name?.slice(0,2)}</Avatar.Fallback>
             </Avatar>
           </div>
         )}
 
         {/* মোবাইল কাস্টম হ্যামবার্গার বাটন */}
         <button
+        
           onClick={() => setIsOpen(!isOpen)}
-          className="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-50 focus:outline-none md:hidden transition-colors"
+          className="p-1.5 rounded-lg text-slate-600 hover:text-slate-900 cursor-pointer hover:bg-slate-50 focus:outline-none md:hidden transition-colors"
           aria-label="Toggle Menu"
         >
-          {isOpen ? <FiX size={22} /> : <FiMenu size={22} />}
+          {isOpen ? <FiX size={25} /> : <FiMenu size={25} />}
         </button>
       </div>
 

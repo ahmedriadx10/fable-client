@@ -66,10 +66,10 @@ console.log(currentUser?.image)
 
   return (
     <nav className="w-fullsticky top-0 z-50 max-w-7xl mx-auto  px-6 sm:px-8 h-16 flex items-center justify-between">
-      {/* বাম পাশ: লোগো */}
+
       <Logo />
 
-      {/* মাঝখান: ডেস্কটপ ন্যাভ লিংকসমূহ */}
+
       <div className="hidden md:flex items-center gap-8">
         {navLinks.map((link) => {
           const isActive = pathname === link.href;
@@ -89,12 +89,12 @@ console.log(currentUser?.image)
         })}
       </div>
 
-      {/* ডান পাশ: ডেস্কটপ প্রোফাইল অথবা লগইন বাটন এবং মোবাইল হ্যামবার্গার*/}
+
       <div className="flex items-center gap-4">
-        {/* ডেস্কটপ অথ কন্ডিশন */}
+     
         <div className="hidden md:block">
           {currentUser ? (
-            /* HeroUI কাস্টম অ্যাভাটার ড্রপডাউন মেনু */
+        
             <Dropdown>
               <Dropdown.Trigger className="rounded-full cursor-pointer ring-2 ring-transparent hover:ring-[#6322d6]/30 transition-all">
                 <Avatar>
@@ -102,8 +102,8 @@ console.log(currentUser?.image)
                   <Avatar.Fallback delayMs={1000}>{currentUser.name.slice(0,2)}</Avatar.Fallback>
                 </Avatar>
               </Dropdown.Trigger>
-              <Dropdown.Popover>
-                <div className="px-3 pt-3 pb-1">
+              <Dropdown.Popover className=' rounded-2xl'>
+                <div className="px-3 pt-3 pb-1 ">
                   <div className="flex items-center gap-2">
                     <Avatar size="sm">
                       <Avatar.Image alt={currentUser.name} src={currentUser.image} />
@@ -120,7 +120,7 @@ console.log(currentUser?.image)
                   </div>
                 </div>
                 <Dropdown.Menu>
-                  {/* প্রোফাইল অপশন */}
+             
                   <Dropdown.Item id="profile" textValue="Profile">
                     <Link
                       href={`/dashboard/${currentUser?.role}/profile`}
@@ -130,14 +130,15 @@ console.log(currentUser?.image)
                       <FiUser className="size-4 text-slate-400" />
                     </Link>
                   </Dropdown.Item>
-                  {/* লগআউট অপশন */}
+
                   <Dropdown.Item
                     id="logout"
                     textValue="Logout"
                     variant="danger"
                     onPress={handleLogOut}
+                    className='hover:bg-red-100'
                   >
-                    <div className="flex w-full items-center justify-between gap-2 cursor-pointer">
+                    <div className="flex w-full items-center  justify-between gap-2 cursor-pointer">
                       <Label className="text-red-500 font-medium">
                         Log Out
                       </Label>
@@ -148,7 +149,7 @@ console.log(currentUser?.image)
               </Dropdown.Popover>
             </Dropdown>
           ) : (
-            /* ইউজার লগইন না থাকলে */
+    
             <div className="flex items-center gap-3">
               <Link
                 href="/login"
@@ -163,7 +164,7 @@ console.log(currentUser?.image)
           )}
         </div>
 
-        {/* মোবাইল ভিউ অ্যাভাটার (লগইন থাকলে হ্যামবার্গারের বামে দেখাবে) */}
+        
         {currentUser && (
           <div className="block md:hidden">
             <Avatar >
@@ -173,7 +174,7 @@ console.log(currentUser?.image)
           </div>
         )}
 
-        {/* মোবাইল কাস্টম হ্যামবার্গার বাটন */}
+ 
         <button
         
           onClick={() => setIsOpen(!isOpen)}
@@ -184,10 +185,10 @@ console.log(currentUser?.image)
         </button>
       </div>
 
-      {/* কাস্টম মোবাইল রেসপনসিভ ড্রপডাউন মেনু */}
+
       {isOpen && (
         <div className="absolute top-16 left-0 w-full bg-white border-b border-slate-100 shadow-lg flex flex-col p-6 space-y-4 md:hidden transition-all duration-300 z-40">
-          {/* মেনু লিংকসমূহ */}
+   
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
@@ -204,7 +205,7 @@ console.log(currentUser?.image)
             );
           })}
 
-          {/* মোবাইল ভিউতে ইউজার লগইন না থাকলে */}
+
           {!currentUser && (
             <div className="flex flex-col gap-3 pt-2">
               <Link
@@ -225,7 +226,7 @@ console.log(currentUser?.image)
             </div>
           )}
 
-          {/* মোবাইল ভিউতে ইউজার লগইন থাকলে */}
+
           {currentUser && (
             <div className="pt-4 border-t border-slate-100 flex flex-col gap-3">
               <Link
@@ -240,7 +241,7 @@ console.log(currentUser?.image)
                   setIsOpen(false);
                   handleLogOut();
                 }}
-                className="text-sm font-medium text-red-500 flex items-center gap-2 text-left"
+                className="text-sm cursor-pointer font-medium text-red-500 flex items-center gap-2 text-left"
               >
                 <FiLogOut className="size-4" /> Log Out
               </button>

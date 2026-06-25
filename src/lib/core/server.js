@@ -25,6 +25,16 @@ return handleStatusCode(res)
 }
 
 
+export const serverDataFetch=async (path,)=>{
+
+
+  const res=await fetch(`${baseUrl}${path}`)
+
+  return handleStatusCode(res)
+
+}
+
+
 
 const handleStatusCode=(response)=>{
 

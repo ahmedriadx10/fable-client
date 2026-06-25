@@ -1,6 +1,7 @@
 "use client";
 
 import { postEbook } from "@/lib/actions/PostEbook";
+import { Button } from "@heroui/react";
 import Image from "next/image";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -189,7 +190,7 @@ toast.error('Failed to publish ebook. Please try again later.');
                       <span className="text-sm font-medium text-gray-600">
                         {isDragActive ? "Drop the file here!" : "Upload Cover"}
                       </span>
-                      <span className="mt-2 px-3 py-1.5 text-xs font-semibold text-white bg-(--color-primary) rounded-md shadow-sm hover:bg-[#5500B3] transition">
+                      <span className="mt-2 px-3 py-1.5 text-xs font-semibold text-white bg-(--color-primary) rounded-lg shadow-sm hover:bg-[#5500B3] transition">
                         Browse Files
                       </span>
                       <input 
@@ -291,16 +292,16 @@ toast.error('Failed to publish ebook. Please try again later.');
             </div>
 
             {/* Publish Button */}
-            <button 
+            <Button
               type="submit" 
               disabled={loading}
-              className="mt-4 cursor-pointer w-full bg-(--color-primary) hover:bg-[#5500B3] text-white font-medium py-3 px-4 rounded-xl shadow-md transition flex items-center justify-center gap-2 disabled:bg-purple-300"
+              className="mt-4 cursor-pointer w-full bg-(--color-primary) hover:bg-[#5500B3] text-white font-medium  px-6 h-10 rounded-lg shadow-md transition flex items-center justify-center gap-2 disabled:bg-purple-300"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
               </svg>
               Publish Ebook
-            </button>
+            </Button>
 
           </div>
         </form>

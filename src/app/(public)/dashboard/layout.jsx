@@ -23,7 +23,7 @@ const DashboardLayout = async({ children }) => {
       <div className="flex-1  lg:pl-64 flex flex-col min-h-screen">
 
         
-        <main className="flex-1 p-4 md:p-6 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 md:p-6  w-full">
           {children}
         </main>
       </div>

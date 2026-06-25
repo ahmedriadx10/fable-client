@@ -36,7 +36,7 @@ const DashboardSidebarContent = ({user}) => {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition-all duration-200 ${
                   isActive
                     ? "bg-[#6322d6]/10 text-[#6322d6]"
                     : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"

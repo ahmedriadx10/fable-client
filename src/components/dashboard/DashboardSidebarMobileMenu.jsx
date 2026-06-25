@@ -72,7 +72,7 @@ const DashboardSidebarMobileMenu = ({user}) => {
                   onClick={()=>setIsOpen(!isOpen)}
 href={item?.href}
                   key={inx}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                    className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition-all duration-200 ${
              path===item?.href
                     ? "bg-[#6322d6]/10 text-[#6322d6]"
                     : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
@@ -101,7 +101,7 @@ href={item?.href}
 
         <button
           onClick={logoutAccount}
-          className="cursor-pointer w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-red-500 hover:bg-red-50 transition-colors text-left"
+          className="cursor-pointer w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-red-500 hover:bg-red-50 transition-colors text-left"
         >
           <FiLogOut className="text-lg" />
           <span>Logout</span>

@@ -1,12 +1,20 @@
+import ManageEbook from "@/components/dashboard/writer-component/ManageEbook";
+import { getWriterEbooks } from "@/lib/api/WriterEbooks";
+import { getUserSession } from "@/lib/core/session";
 
-const WriterMangeEbookPage = () => {
+const WriterManageEbookPage = async() => {
+
+  const user=await getUserSession()
+
+  const writerEbooksData=await getWriterEbooks(user?.id)
+
+
+
   return (
-    <div>
-      this is writer manage ebooks page
-
-      {/* sales history will be showed on the dashboard/writer home page */}
-    </div>
+    <>
+      <ManageEbook writerEbooksData={writerEbooksData} user={user}/>
+    </>
   );
 };
 
-export default WriterMangeEbookPage;
+export default WriterManageEbookPage;

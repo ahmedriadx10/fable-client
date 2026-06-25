@@ -9,17 +9,17 @@ const DashboardLayout = async({ children }) => {
   const userData=await getUserSession()
 
 
-  console.log(userData)
+
 
   return (
     <section className="flex flex-col lg:flex-row  min-h-screen bg-slate-50/50 text-slate-800">
-      {/* বাম পাশে সাইডবার (ছোট স্ক্রিনে হাইড, বড় স্ক্রিনে ফিক্সড) */}
+
       <aside className="hidden lg:block w-64 bg-white border-r border-slate-100 fixed inset-y-0 left-0 z-20">
         <DashboardSidebar user={userData}/>
       </aside>
       <DashboardSidebarMobileMenu user={userData}/>
 
-      {/* ডান পাশে ন্যাভবার এবং চিলড্রেন */}
+
       <div className="flex-1  lg:pl-64 flex flex-col min-h-screen">
 
         

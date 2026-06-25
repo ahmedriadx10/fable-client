@@ -29,7 +29,7 @@ export const roleBasedDashboardNavigationLinks = {
     { name: "Dashboard Home", href: "/dashboard/writer", icon: FiGrid },
     { name: "Add Ebook", href: "/dashboard/writer/add-ebook", icon: FiPlusCircle },
     { name: "Bookmark", href: "/dashboard/writer/bookmark", icon: FiBookmark },
-    { name: "Sales History", href: "/dashboard/writer/sales-history", icon: FiDollarSign },
+    { name: "Manage Ebook", href: "/dashboard/writer/manage-ebooks", icon: FiDollarSign },
   ],
   admin: [
     { name: "Dashboard Home", href: "/dashboard/admin", icon: FiGrid },

@@ -13,7 +13,7 @@ const DashboardSidebarMobileMenu = ({user}) => {
   const [isOpen, setIsOpen] = useState(false)
   const path=usePathname()
   const state = useOverlayState();
-  console.log('user session from mobile menu',user)
+
 
   const navItems =roleBasedDashboardNavigationLinks[user?.role]
 

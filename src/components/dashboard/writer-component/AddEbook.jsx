@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-const AddEbook = () => {
+const AddEbook = ({user}) => {
   const [imagePreview, setImagePreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isDragActive, setIsDragActive] = useState(false);
@@ -20,6 +20,8 @@ const AddEbook = () => {
   });
   
 
+
+  console.log('user data from add ebook compo',user)
 
 
   // Controlled Component er generic change handler
@@ -101,25 +103,40 @@ const AddEbook = () => {
     const finalEbookData = {
       ...formData,          
       coverImage: imagePreview || 'https://img.magnific.com/premium-vector/blank-book-cover_134452-8.jpg?semt=ais_hybrid&w=740&q=80', 
+      status:'published',
+      authorId:user?.id || null,
+      authorName:user?.name ,
+
     };
 
-  //   setFormData({
-  //   title: "",
-  //   summary: "",
-  //   content: "",
-  //   genre: "",
-  //   price: "",
-  // })
+
     console.log("Database e jabar jonno ready data:", {...finalEbookData,price:Number(finalEbookData.price)});
     
 
 
-// const ebookPostResult=await postEbook(finalEbookData)
+const ebookPostResult=await postEbook(finalEbookData)
 
-// console.log('ebook post result',ebookPostResult)
 
-    // Ekhane ekhon tmr backend API ba MongoDB server e data pathiye dite parbe
-    // axios.post('/api/ebooks', finalEbookData) ...
+if(ebookPostResult?.insertedId){
+  toast.success("Ebook published successfully!");
+    setFormData({
+    title: "",
+    summary: "",
+    content: "",
+    genre: "",
+    price: "",
+  })
+  setImagePreview(null)
+
+  return 
+
+}
+
+
+toast.error('Failed to publish ebook. Please try again later.');
+
+
+
   };
 
   return (
@@ -277,7 +294,7 @@ const AddEbook = () => {
             <button 
               type="submit" 
               disabled={loading}
-              className="mt-4 w-full bg-(--color-primary) hover:bg-[#5500B3] text-white font-medium py-3 px-4 rounded-xl shadow-md transition flex items-center justify-center gap-2 disabled:bg-purple-300"
+              className="mt-4 cursor-pointer w-full bg-(--color-primary) hover:bg-[#5500B3] text-white font-medium py-3 px-4 rounded-xl shadow-md transition flex items-center justify-center gap-2 disabled:bg-purple-300"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>

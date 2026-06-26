@@ -9,6 +9,7 @@ import { writerStatusUpdate } from "@/lib/actions/writerStatusUpdate";
 import DeleteEbookAlert from "./DeleteEbookAlert";
 import { deleteWriterEbook } from "@/lib/actions/DeleteWriterEbook";
 import toast from "react-hot-toast";
+import WriterUpdateEbook from "./WriterUpdateEbook";
 
 const ManageEbook = ({ writerEbooksData, user }) => {
   const handleTogglePublish = async (id, currentStatus) => {
@@ -178,13 +179,15 @@ toast.error('Something went wrong please try again')
                               </label>
 
                               {/* এডিট বাটন */}
-                              <button
-                                onClick={() => handleEdit(ebook._id)}
+                     <WriterUpdateEbook ebookData={ebook} user={user}>
+                               <span
+                         
                                 className="text-gray-500 cursor-pointer hover:text-(--color-info)  transition-colors"
                                 title="Edit Ebook"
                               >
                                 <FiEdit2 className="w-4 h-4" />
-                              </button>
+                              </span>
+                     </WriterUpdateEbook>
 
                               {/* ডিলিট বাটন */}
                      <DeleteEbookAlert clickHandler={()=>handleDelete(ebook._id)}>

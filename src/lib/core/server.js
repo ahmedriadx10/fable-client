@@ -1,5 +1,6 @@
 'use server'
 
+import { path } from "motion/react-client"
 import { redirect } from "next/navigation"
 
 
@@ -31,6 +32,23 @@ export const serverDataFetch=async (path,)=>{
   const res=await fetch(`${baseUrl}${path}`)
 
   return handleStatusCode(res)
+
+}
+
+
+export const serverDataDelete=async (path,method='DELETE')=>{
+
+
+  const res=await fetch(`${baseUrl}${path}`,{
+
+    method:method
+  })
+
+
+
+
+  return handleStatusCode(res)
+
 
 }
 

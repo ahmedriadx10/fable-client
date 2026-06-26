@@ -6,6 +6,9 @@ import { FiEdit2, FiPlus, FiTrash2 } from "react-icons/fi";
 import { HiOutlineBookOpen } from "react-icons/hi";
 import Link from "next/link";
 import { writerStatusUpdate } from "@/lib/actions/writerStatusUpdate";
+import DeleteEbookAlert from "./DeleteEbookAlert";
+import { deleteWriterEbook } from "@/lib/actions/DeleteWriterEbook";
+import toast from "react-hot-toast";
 
 const ManageEbook = ({ writerEbooksData, user }) => {
   const handleTogglePublish = async (id, currentStatus) => {
@@ -21,8 +24,21 @@ const ManageEbook = ({ writerEbooksData, user }) => {
   };
 
   // ৩. ডিলিট হ্যান্ডলার
-  const handleDelete = (id) => {
+  const handleDelete =async (id) => {
     console.log(`Delete clicked for book ID: ${id}`);
+
+    const result=await deleteWriterEbook(id)
+
+if(result?.deletedCount>0){
+
+toast.success('Ebook delete successful')
+return
+}
+
+toast.error('Something went wrong please try again')
+
+
+
   };
 
   return (
@@ -164,20 +180,22 @@ const ManageEbook = ({ writerEbooksData, user }) => {
                               {/* এডিট বাটন */}
                               <button
                                 onClick={() => handleEdit(ebook._id)}
-                                className="text-gray-400 cursor-pointer hover:text-gray-600 p-1.5 rounded-lg hover:bg-slate-100 transition-colors"
+                                className="text-gray-500 cursor-pointer hover:text-(--color-info)  transition-colors"
                                 title="Edit Ebook"
                               >
                                 <FiEdit2 className="w-4 h-4" />
                               </button>
 
                               {/* ডিলিট বাটন */}
-                              <button
-                                onClick={() => handleDelete(ebook._id)}
-                                className="text-gray-400 cursor-pointer hover:text-red-500 p-1.5 rounded-lg hover:bg-red-50 transition-colors"
+                     <DeleteEbookAlert clickHandler={()=>handleDelete(ebook._id)}>
+                      {         <span
+                                
+                                className="text-gray-500 cursor-pointer hover:text-red-500   transition-colors"
                                 title="Delete Ebook"
                               >
                                 <FiTrash2 className="w-5 h-5 " />
-                              </button>
+                              </span>}
+                     </DeleteEbookAlert>
                             </div>
                           </Table.Cell>
                         </Table.Row>

@@ -36,7 +36,7 @@ const LoginForm = () => {
     e.preventDefault();
     const { email, password } = formData;
 
-    console.log("Login Data Submitted:", { email, password });
+
 
     const result = await authClient.signIn.email(
       {
@@ -63,6 +63,7 @@ const LoginForm = () => {
 
     if (result?.error) {
       toast.error(result?.error?.message);
+      setLoading(false)
     }
   };
 

@@ -5,7 +5,7 @@ const WriterAddEbookPage =async () => {
 
   const user=await getUserSession()
 
-  console.log('user session from add ebook page',user)
+
 
   return (
     <div>

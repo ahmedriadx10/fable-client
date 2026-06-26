@@ -22,7 +22,6 @@ const AddEbook = ({user}) => {
   
 
 
-  console.log('user data from add ebook compo',user)
 
 
   // Controlled Component er generic change handler

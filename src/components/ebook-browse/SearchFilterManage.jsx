@@ -1,6 +1,7 @@
 "use client";
 
-import { FiSearch, FiArrowRight } from "react-icons/fi";
+import { FiSearch, FiArrowRight, FiChevronDown } from "react-icons/fi";
+import { Select, ListBox } from "@heroui/react";
 
 const SearchFilterManage = ({
   search, setSearch,
@@ -10,13 +11,35 @@ const SearchFilterManage = ({
   sortBy, setSortBy
 }) => {
   
-  // জেনর লিস্ট ডামি ড্রপডাউন ডাটা
   const genres = ["All Ebooks", "Science Fiction", "Sci-Fi", "Classic", "Self-Help", "Romance", "Memoir", "Poetry"];
+  
+  const sortOptions = [
+    { id: "Nf", label: "Newest First" },
+    { id: "Lth", label: "Price: Low to High" },
+    { id: "Htl", label: "Price: High to Low" }
+  ];
+
+  // ফিল্টার অ্যাক্টিভ চেক (স্টেট খালি না থাকলে ক্লিয়ার বাটন আসবে)
+  const isFilterActive = 
+    search.trim() !== "" || 
+    genre !== "" || 
+    minPrice !== "" || 
+    maxPrice !== "" || 
+    sortBy !== "";
+
+  // এক ক্লিকে সব স্টেট খালি স্ট্রিং করার ম্যাজিক ফাংশন
+  const handleClearFilters = () => {
+    setSearch("");
+    setGenre("");
+    setMinPrice("");
+    setMaxPrice("");
+    setSortBy("");
+  };
 
   return (
     <div className="w-full flex flex-col items-center">
       
-      {/* মেইন হেডিং শিরোনাম */}
+      {/* শিরোনাম */}
       <div className="text-center mb-8">
         <h1 className="text-4xl font-extrabold text-[#111827] tracking-tight">
           Explore the Fable Library
@@ -26,7 +49,7 @@ const SearchFilterManage = ({
         </p>
       </div>
 
-      {/* ১. সার্চ বার বার সেকশন */}
+      {/* ১. সার্চ বার */}
       <div className="w-full max-w-2xl bg-white rounded-2xl border border-gray-200 shadow-sm flex items-center p-1.5 mb-6 transition-all focus-within:border-[#6D28D9]/50 focus-within:ring-2 focus-within:ring-[#6D28D9]/10">
         <div className="flex items-center flex-1 pl-4 text-gray-400">
           <FiSearch className="w-5 h-5 shrink-0" />
@@ -43,28 +66,48 @@ const SearchFilterManage = ({
         </button>
       </div>
 
-      {/* ২. ফিল্টার এবং কম্বোবক্স এরিয়া */}
+      {/* ২. ফিল্টার এরিয়া */}
       <div className="w-full bg-white rounded-2xl border border-gray-100 p-4 shadow-sm flex flex-wrap items-center justify-between gap-4">
         
-        <div className="flex flex-wrap items-center gap-4">
-          {/* জেনর সিলেক্টর */}
+        <div className="flex flex-wrap items-center gap-6">
+          
+          {/* Genre Select (স্যাম্পল কোড থেকে ইন্সপায়ার্ড) */}
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-gray-400 tracking-wider uppercase">Genre:</span>
-            <select
-              value={genre}
-              onChange={(e) => setGenre(e.target.value)}
-              className="bg-slate-50 border border-gray-200 rounded-xl px-3 py-2 text-xs font-semibold text-gray-700 outline-none cursor-pointer hover:bg-slate-100 transition-colors"
+            <span className="text-xs font-bold text-gray-400 tracking-wider uppercase shrink-0">Genre:</span>
+            
+            <Select 
+              selectedKey={genre} 
+              onSelectionChange={(key) => setGenre(key)}
             >
-              {genres.map((g, idx) => (
-                <option key={idx} value={g}>{g}</option>
-              ))}
-            </select>
+              <Select.Trigger className="w-40 flex items-center justify-between bg-slate-50 text-gray-700 border border-gray-200 rounded-xl py-2 px-3 text-xs font-semibold hover:border-gray-300 min-h-9 transition-all">
+                <Select.Value>
+                  {genre === "" ? "Select a genre" : genre}
+                </Select.Value>
+                <Select.Indicator>
+                  <FiChevronDown className="w-3 h-3 text-gray-400" />
+                </Select.Indicator>
+              </Select.Trigger>
+              
+              <Select.Popover className="bg-white border border-gray-100 rounded-xl shadow-lg mt-1 overflow-hidden z-50 p-1">
+                <ListBox className="p-0">
+                  {genres.map((g) => (
+                    <ListBox.Item 
+                      key={g} 
+                      id={g} 
+                      className="text-xs font-medium text-gray-700 hover:bg-[#6D28D9] hover:text-white rounded-lg px-3 py-2 cursor-pointer transition-colors"
+                    >
+                      <span>{g}</span>
+                    </ListBox.Item>
+                  ))}
+                </ListBox>
+              </Select.Popover>
+            </Select>
           </div>
 
-          {/* প্রাইস রেঞ্জ ইনপুট */}
+          {/* প্রাইস রেঞ্জ */}
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold text-gray-400 tracking-wider uppercase">Price:</span>
-            <div className="flex items-center bg-slate-50 border border-gray-200 rounded-xl px-2 py-1 max-w-45">
+            <div className="flex items-center bg-slate-50 border border-gray-200 rounded-xl px-2 py-1 max-w-45 min-h-9">
               <input
                 type="number"
                 placeholder="Min"
@@ -87,18 +130,49 @@ const SearchFilterManage = ({
           </div>
         </div>
 
-        {/* সর্টিং অপশন */}
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-bold text-gray-400 tracking-wider uppercase">Sort By:</span>
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className="bg-slate-50 border border-gray-200 rounded-xl px-4 py-2 text-xs font-semibold text-gray-700 outline-none cursor-pointer hover:bg-slate-100 transition-colors"
-          >
-            <option value="Newest First">Newest First</option>
-            <option value="Price: Low to High">Price: Low to High</option>
-            <option value="Price: High to Low">Price: High to Low</option>
-          </select>
+        {/* Sort By Select (স্যাম্পল কোড থেকে ইন্সপায়ার্ড) */}
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold text-gray-400 tracking-wider uppercase shrink-0">Sort By:</span>
+            
+            <Select 
+              selectedKey={sortBy} 
+              onSelectionChange={(key) => setSortBy(key)}
+            >
+              <Select.Trigger className="w-44 flex items-center justify-between bg-slate-50 text-gray-700 border border-gray-200 rounded-xl py-2 px-4 text-xs font-semibold hover:border-gray-300 min-h-9 transition-all">
+                <Select.Value>
+                  {sortBy === "" ? "Select an option" : sortOptions.find(opt => opt.id === sortBy)?.label}
+                </Select.Value>
+                <Select.Indicator>
+                  <FiChevronDown className="w-3 h-3 text-gray-400" />
+                </Select.Indicator>
+              </Select.Trigger>
+              
+              <Select.Popover className="bg-white border border-gray-100 rounded-xl shadow-lg mt-1 overflow-hidden z-50 p-1">
+                <ListBox className="p-0">
+                  {sortOptions.map((opt) => (
+                    <ListBox.Item 
+                      key={opt.id} 
+                      id={opt.id} 
+                      className="text-xs font-medium text-gray-700 hover:bg-[#6D28D9] hover:text-white rounded-lg px-3 py-2 cursor-pointer transition-colors"
+                    >
+                      <span>{opt.label}</span>
+                    </ListBox.Item>
+                  ))}
+                </ListBox>
+              </Select.Popover>
+            </Select>
+          </div>
+
+          {/* ক্লিয়ার ফিল্টার বাটন */}
+          {isFilterActive && (
+            <button
+              onClick={handleClearFilters}
+              className="text-xs font-bold text-red-500 hover:text-red-600 transition-colors bg-red-50 hover:bg-red-100/70 px-3 py-2 rounded-xl border border-red-100 cursor-pointer h-9 flex items-center shadow-sm whitespace-nowrap"
+            >
+              Clear Filters
+            </button>
+          )}
         </div>
 
       </div>

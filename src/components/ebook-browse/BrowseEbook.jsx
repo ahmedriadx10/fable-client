@@ -9,34 +9,53 @@ const BrowseEbook = ({ booksData }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // URL-এ আগে থেকে কোনো কুয়েরি থাকলে তা ইনিশিয়াল স্টেট হিসেবে সেট হবে
+  // ইউআরএল কুয়েরি থেকে ইনিশিয়াল ভ্যালু রিড করবে, না থাকলে ডিফল্ট খালি স্ট্রিং ("") হবে
   const [search, setSearch] = useState(searchParams.get("search") || "");
-  const [genre, setGenre] = useState(searchParams.get("genre") || "All Ebooks");
+  const [genre, setGenre] = useState(searchParams.get("genre") || "");
   const [minPrice, setMinPrice] = useState(searchParams.get("minPrice") || "");
   const [maxPrice, setMaxPrice] = useState(searchParams.get("maxPrice") || "");
-  const [sortBy, setSortBy] = useState(searchParams.get("sortBy") || "Newest First");
+  const [sortBy, setSortBy] = useState(searchParams.get("sortBy") || "");
 
-  // ইউজার সার্চ বা ফিল্টার চেঞ্জ করলে এই useEffect ইউআরএল কুয়েরি পুশ করবে
   useEffect(() => {
     const params = new URLSearchParams();
 
-    if (search.trim()) params.set("search", search);
-    if (genre !== "All Ebooks") params.set("genre", genre);
+    // ১. সার্চ কুয়েরি যুক্ত করা
+    if (search.trim()) {
+      params.set("search", search);
+    }
+    
+    // ২. জেনর কুয়েরি যুক্ত করা (খালি স্ট্রিং না হলেই কেবল ইউআরএল-এ সেট হবে)
+    if (genre && genre.trim() !== "") {
+   if(genre!=='All Ebooks'){
+       params.set("genre", genre);
+   }
+    }
+    
+    // ৩. প্রাইস রেঞ্জ কুয়েরি যুক্ত করা
     if (minPrice) params.set("minPrice", minPrice);
     if (maxPrice) params.set("maxPrice", maxPrice);
-    if (sortBy !== "Newest First") params.set("sortBy", sortBy);
+    
+    // ৪. সর্ট কুয়েরি যুক্ত করা (খালি স্ট্রিং না হলেই কেবল ইউআরএল-এ সেট হবে)
+    if (sortBy && sortBy.trim() !== "") {
+      params.set("sortBy", sortBy);
+    }
 
     const queryString = params.toString();
     
-    // ব্রাউজারের হিস্ট্রি নষ্ট না করে শ্যালো রাউটিং-এর মতো ইউআরএল পুশ হবে
-    router.push(`/browse-ebooks?${queryString}`, { scroll: false });
+    // কন্ডিশনাল রাউটিং: কুয়েরি থাকলে '?' সহ পুশ করবে, ক্লিয়ার হলে ক্লিন রাউটে ব্যাক করবে
+    if (queryString) {
+      router.push(`/browse-ebooks?${queryString}`, { scroll: false });
+    } else {
+      router.push(`/browse-ebooks`, { scroll: false });
+    }
+    
   }, [search, genre, minPrice, maxPrice, sortBy, router]);
 
   return (
     <section className="min-h-screen bg-slate-50/40 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         
-        {/* সার্চ এবং ফিল্টার কন্ট্রোলার সেকশন */}
+        {/* সার্চ এবং ফিল্টার কম্পোনেন্ট */}
         <SearchFilterManage
           search={search}
           setSearch={setSearch}
@@ -50,7 +69,7 @@ const BrowseEbook = ({ booksData }) => {
           setSortBy={setSortBy}
         />
 
-        {/* টোটাল বুকস কাউন্ট ইন্ডিকেটর */}
+        {/* বুক কাউন্ট বার */}
         <div className="mb-6 mt-8">
           <p className="text-gray-500 font-medium text-sm">
             Showing 1-{booksData?.length || 0} of {booksData?.length || 0} books

@@ -11,7 +11,7 @@ const SearchFilterManage = ({
   sortBy, setSortBy
 }) => {
   
-  const genres = ["All Ebooks", "Science Fiction", "Sci-Fi", "Classic", "Self-Help", "Romance", "Memoir", "Poetry"];
+  const genres = ["All Ebooks", "Science Fiction",'Fantasy', "Sci-Fi", "Classic", "Self-Help", "Romance", "Memoir", "Poetry"];
   
   const sortOptions = [
     { id: "Nf", label: "Newest First" },

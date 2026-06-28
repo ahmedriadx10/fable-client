@@ -12,7 +12,7 @@ const EmptyBook = ({ message = "No book details found." }) => {
         The ebook you are trying to view might have been removed, or the link is broken.
       </p>
       <Link
-        href="/ebooks"
+        href="/browse-ebooks"
         className="px-5 py-2.5 bg-purple-700 hover:bg-purple-800 text-white font-medium rounded-xl transition-colors shadow-sm"
       >
         Browse Other Ebooks

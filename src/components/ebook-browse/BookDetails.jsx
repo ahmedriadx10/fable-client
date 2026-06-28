@@ -4,8 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiShoppingCart, FiBookmark, FiLock, FiCheckCircle } from "react-icons/fi";
 import { FaBookmark } from "react-icons/fa";
+import { bookmarkEbook } from "@/lib/actions/Bookmark";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
-const BookDetails = ({ book }) => {
+const BookDetails = ({ book ,user}) => {
   const {
     title,
     summary,
@@ -21,8 +24,10 @@ const BookDetails = ({ book }) => {
     bookmarked,
     hasAccess,
     isWriter,
+    _id
   } = book;
 
+  const router=useRouter()
   // ডেট ফরম্যাট করা
   const formattedDate = createdAt?.$date 
     ? new Date(createdAt.$date).toLocaleDateString("en-US", { month: "short", year: "numeric" })
@@ -34,9 +39,35 @@ const BookDetails = ({ book }) => {
     console.log("Redirecting to Stripe Checkout for:", title);
   };
 
-  const handleBookmark = () => {
+  const handleBookmark = async() => {
     if (isWriter) return;
+if(!user){
+  router.push('/login')
+}
+
+if(bookmarked) return
+
     console.log("Toggling bookmark status...");
+
+
+    const bookmarkData={
+title,
+genre,
+price,authorId,
+authorName,
+userId:user?.id,
+bookId:_id
+
+    }
+const result=await bookmarkEbook(bookmarkData,_id)
+
+    
+if(result?.insertedId){
+  toast.success('Bookmarked succesfully')
+}
+
+
+
   };
 
   return (
@@ -100,12 +131,12 @@ const BookDetails = ({ book }) => {
             <button
               onClick={handlePurchase}
               disabled={isWriter}
-              className={`flex items-center justify-center gap-2 px-6 py-3 font-medium rounded-xl transition-all duration-200 ${
+              className={`flex cursor-pointer items-center justify-center gap-2 px-6 py-3 font-medium rounded-xl transition-all duration-200 ${
                 purchased
                   ? "bg-emerald-600 text-white cursor-default"
                   : isWriter
                   ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                  : "bg-purple-700 hover:bg-purple-800 text-white active:scale-95 shadow-md shadow-purple-100"
+                  : "bg-(--color-primary) hover:bg-purple-800 text-white active:scale-95 shadow-md shadow-purple-100"
               }`}
             >
               {purchased ? (
@@ -123,11 +154,11 @@ const BookDetails = ({ book }) => {
             <button
               onClick={handleBookmark}
               disabled={isWriter}
-              className={`p-3 rounded-xl border transition-all duration-200 ${
+              className={`p-3 rounded-xl cursor-pointer border transition-all duration-200 ${
                 isWriter
                   ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed"
                   : bookmarked
-                  ? "bg-purple-50 border-purple-200 text-purple-700"
+                  ? "bg-purple-50 border-purple-200 text-(--color-primary)"
                   : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50 active:scale-95"
               }`}
               title={isWriter ? "You cannot bookmark your own book" : "Bookmark Ebook"}

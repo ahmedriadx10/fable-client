@@ -53,6 +53,7 @@ if(bookmarked) return
     const bookmarkData={
 title,
 genre,
+coverImage,
 price,authorId,
 authorName,
 userId:user?.id,

@@ -1,44 +1,28 @@
-import {Table} from "@heroui/react";
+import BookmarkManage from "@/components/dashboard/BookmarkManage";
+import { bookmarkDataGet } from "@/lib/api/BookmarksData";
+import { getUserSession } from "@/lib/core/session";
 
-export default function WriterBookmarkPage() {
+const WriterBookmarkPage = async () => {
+  const user = await getUserSession();
+
+  const bookmarkData = await bookmarkDataGet(user?.id) || [];
+console.log(bookmarkData)
   return (
-    <Table>
-      <Table.ScrollContainer>
-        <Table.Content aria-label="Team members" className="">
-          <Table.Header>
-            <Table.Column isRowHeader>Name</Table.Column>
-            <Table.Column>Role</Table.Column>
-            <Table.Column>Status</Table.Column>
-            <Table.Column>Email</Table.Column>
-          </Table.Header>
-          <Table.Body>
-            <Table.Row>
-              <Table.Cell>Kate Moore</Table.Cell>
-              <Table.Cell>CEO</Table.Cell>
-              <Table.Cell>Active</Table.Cell>
-              <Table.Cell>kate@acme.com</Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell>John Smith</Table.Cell>
-              <Table.Cell>CTO</Table.Cell>
-              <Table.Cell>Active</Table.Cell>
-              <Table.Cell>john@acme.com</Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell>Sara Johnson</Table.Cell>
-              <Table.Cell>CMO</Table.Cell>
-              <Table.Cell>On Leave</Table.Cell>
-              <Table.Cell>sara@acme.com</Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell>Michael Brown</Table.Cell>
-              <Table.Cell>CFO</Table.Cell>
-              <Table.Cell>Active</Table.Cell>
-              <Table.Cell>michael@acme.com</Table.Cell>
-            </Table.Row>
-          </Table.Body>
-        </Table.Content>
-      </Table.ScrollContainer>
-    </Table>
+    <div className="min-h-screen bg-slate-50/50 p-6 md:p-10">
+      <div className="max-w-7xl mx-auto lg:mx-0">
+        {/* Header Section */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-slate-900 tracking-tight">My Bookmarks</h1>
+          <p className="text-sm text-slate-500 mt-2 max-w-xl">
+            Curate your personal collection of literature, research, and drafts. Access your saved items instantly across all your devices.
+          </p>
+        </div>
+
+        {/* Bookmark Manager */}
+        <BookmarkManage bookmarkData={bookmarkData} />
+      </div>
+    </div>
   );
-}
+};
+
+export default WriterBookmarkPage;

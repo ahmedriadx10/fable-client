@@ -22,7 +22,7 @@ if(pathname.startsWith('/dashboard')){
   return null
 }
 
-console.log(currentUser?.image)
+
 
   
   const navLinks = [

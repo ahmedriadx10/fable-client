@@ -43,8 +43,8 @@ toast.error('Failed to delete ebook')
 
   return (
     <div className="overflow-hidden">
-      <Table variant="secondary" className="w-full rounded-2xl">
-        <Table.ScrollContainer>
+      <Table variant="secondary" className="w-full rounded-2xl ">
+        <Table.ScrollContainer >
           <Table.Content aria-label="Admin Manage Ebooks Table" className="min-w-200">
             <Table.Header>
               <Table.Column isRowHeader className="rounded-bl-none text-gray-400 font-semibold uppercase text-xs tracking-wider p-4">COVER</Table.Column>
@@ -54,7 +54,7 @@ toast.error('Failed to delete ebook')
               <Table.Column className="text-gray-400 font-semibold uppercase text-xs tracking-wider p-4">STATUS</Table.Column>
               <Table.Column className="rounded-br-none text-gray-400 font-semibold uppercase text-xs tracking-wider p-4 text-center">ACTIONS</Table.Column>
             </Table.Header>
-            <Table.Body>
+            <Table.Body  >
               {validEbooksData.map((book) => {
                 const bookIdStr = book._id?.$oid || book._id;
                 const isPublished = book.status === "published";

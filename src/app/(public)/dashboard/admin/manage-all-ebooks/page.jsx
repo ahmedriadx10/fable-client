@@ -26,7 +26,9 @@ const AdminManageAllEbook = async () => {
             Total Ebooks: {allEbooksData?.length || 0}
           </span>
         </div>
-        <ManageEbooks ebooksData={allEbooksData} />
+    <div className="max-h-150 overflow-y-auto scrollbar-thumb-(--color-primary)">
+          <ManageEbooks ebooksData={allEbooksData} />
+    </div>
       </section>
     </div>
   );

@@ -2,6 +2,7 @@
 import { deleteTheBookmark } from "@/lib/actions/DeleteBookmark";
 import Image from "next/image";
 import Link from "next/link";
+import toast from "react-hot-toast";
 import { FiTrash2, FiExternalLink } from "react-icons/fi";
 
 const BookmarkCard = ({ bookmark }) => {
@@ -14,7 +15,7 @@ const BookmarkCard = ({ bookmark }) => {
 
 const result=await deleteTheBookmark(_id)
 
-if(deletedCount>0){
+if(result?.deletedCount>0){
   toast.success('Bookmark delete successfull')
 }
 

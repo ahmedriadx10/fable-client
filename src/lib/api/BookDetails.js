@@ -1,7 +1,7 @@
-import { protectedFetch } from "../core/server"
+import { ebookDetailsFetch} from "../core/server"
 
 export const getBookDetails=async(id)=>{
 
-return protectedFetch(`/books/${id}`)
+return ebookDetailsFetch(`/books/${id}`)
 
 }

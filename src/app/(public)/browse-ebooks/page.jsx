@@ -5,7 +5,7 @@ const BrowseEbooksPage =async ({searchParams}) => {
 
 const searchQuery=await searchParams
 
-console.log('search Query is here:',searchQuery)
+// console.log('search Query is here:',searchQuery)
 
 const queryInstance=new URLSearchParams(searchQuery)
 

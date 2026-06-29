@@ -42,12 +42,12 @@ const BookDetails = ({ book ,user}) => {
   const handleBookmark = async() => {
     if (isWriter) return;
 if(!user){
-  router.push('/login')
+  return router.push('/login')
 }
 
 if(bookmarked) return
 
-    console.log("Toggling bookmark status...");
+//in future have to implement bookmark toggle feature
 
 
     const bookmarkData={
@@ -129,9 +129,16 @@ if(result?.insertedId){
           {/* অ্যাকশন বাটন গ্রুপ */}
           <div className="flex items-center gap-3 pt-4">
             {/* পারচেজ বাটন */}
-            <button
-              onClick={handlePurchase}
-              disabled={isWriter}
+ <form action='/api/payment' method='POST'>
+ <input type="hidden" name='price' value={price}  />
+ <input type="hidden" name='bookId' value={_id}  />
+ <input type="hidden" name='title' value={title}  />
+ <input type="hidden" name='coverImage' value={coverImage}  />
+ <input type="hidden" name='authorName' value={authorName}  />
+ <input type="hidden" name='authorId' value={authorId}  />
+           <button
+         type='submit'
+              disabled={isWriter || purchased}
               className={`flex cursor-pointer items-center justify-center gap-2 px-6 py-3 font-medium rounded-xl transition-all duration-200 ${
                 purchased
                   ? "bg-emerald-600 text-white cursor-default"
@@ -150,6 +157,8 @@ if(result?.insertedId){
                 </>
               )}
             </button>
+
+ </form>
 
             {/* বুকমার্ক বাটন */}
             <button

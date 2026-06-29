@@ -102,7 +102,7 @@ const AddEbook = ({user}) => {
 
     const finalEbookData = {
       ...formData,
-      price:Number(formData.price),     
+      price:parseFloat(formData.price),     
       coverImage: imagePreview || 'https://img.magnific.com/premium-vector/blank-book-cover_134452-8.jpg?semt=ais_hybrid&w=740&q=80', 
       status:'published',
       authorId:user?.id || null,

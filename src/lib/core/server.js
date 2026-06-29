@@ -1,6 +1,5 @@
 "use server";
 
-
 import { redirect } from "next/navigation";
 import { auth } from "../auth";
 import { headers } from "next/headers";
@@ -32,34 +31,40 @@ export const serverDataDelete = async (path, method = "DELETE") => {
   return handleStatusCode(res);
 };
 
+const jwtTokenSend = async () => {
+  try {
+    const token = await auth.api.getToken({
+      headers: await headers(),
+    });
 
+    const headerAuth = token?.token
+      ? {
+          authorization: `Bearer ${token?.token}`,
+        }
+      : {};
 
-const jwtTokenSend=async()=>{
+    return headerAuth;
+  } catch (error) {
+    console.log("Guest user detected or no token found.");
+    return {};
+  }
+};
 
-const token=await auth.api.getToken({
-  headers: await headers()
-})
+export const protectedFetch = async (path) => {
+  const res = await fetch(`${baseUrl}${path}`, {
+    headers: await jwtTokenSend(),
+  });
 
-const headerAuth=token?.token?{
-  authorization:`Bearer ${token?.token}`
-}:{}
+  return handleStatusCode(res);
+};
 
-return headerAuth
+export const ebookDetailsFetch = async (path) => {
+  const res = await fetch(`${baseUrl}${path}`, {
+    headers: await jwtTokenSend(),
+  });
 
-}
-
-
-
-export const protectedFetch=async(path)=>{
-
-const res=await fetch(`${baseUrl}${path}`,{
-headers:await jwtTokenSend()
-})
-
-
-return handleStatusCode(res)
-
-}
+  return res.json();
+};
 
 const handleStatusCode = (response) => {
   if (response.status === 401) {

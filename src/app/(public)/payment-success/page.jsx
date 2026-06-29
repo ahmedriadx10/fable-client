@@ -43,14 +43,14 @@ await paymentSuccessDataAdd({userId,bookId,authorId,authorName,coverImage,bookNa
       <main className="min-h-screen bg-[#F8FAFC] flex flex-col items-center justify-center p-4 antialiased">
         <div className="w-full max-w-2xl text-center space-y-6">
           
-          {/* সাকসেস গ্রিন আইকন */}
+      
           <div className="flex justify-center">
             <div className="bg-[#E8FBF2] p-2 rounded-2xl inline-block">
               <HiCheckCircle className="text-[#22C55E] text-5xl" />
             </div>
           </div>
 
-          {/* হেডিং টেক্সট */}
+        
           <div className="space-y-2">
             <h1 className="text-3xl font-extrabold text-[#0F172A]">
               Purchase Successful!
@@ -61,7 +61,7 @@ await paymentSuccessDataAdd({userId,bookId,authorId,authorName,coverImage,bookNa
             </p>
           </div>
 
-          {/* মেইন প্রোডাক্ট কার্ড */}
+     
           <div className="bg-white border border-[#E2E8F0] rounded-xl p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] text-left flex flex-col md:flex-row gap-6 items-center md:items-start max-w-2xl mx-auto">
             
             {/* বুক কভার ইমেজ */}

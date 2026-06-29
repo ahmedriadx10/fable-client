@@ -37,7 +37,7 @@ export default async function PaymentSuccessPage({ searchParams }) {
 const authorId=metadata?.authorId
 const userId=metadata?.userId
 const userName=metadata?.userName
- paymentSuccessDataAdd({userId,bookId,authorId,authorName,coverImage,bookName,transactionId,price,userName}).catch(err => 
+ paymentSuccessDataAdd({userId,bookId,authorId,authorName,coverImage,bookName,transactionId,price,userName,costType:'payment'}).catch(err => 
   console.error("Database save failed:", err))
 
     return (

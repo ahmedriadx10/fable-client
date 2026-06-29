@@ -189,7 +189,7 @@ if(result?.insertedId){
             </h2>
             
             {/* 📜 কন্টেন্ট এরিয়াতে max-h এবং overflow-y-auto দেওয়া হয়েছে */}
-            <div className="max-h-137.5 overflow-y-auto pr-4 text-gray-700 whitespace-pre-line leading-relaxed scrollbar-thin scrollbar-thumb-purple-200 scrollbar-track-transparent">
+            <div className="max-h-137.5 overflow-y-auto pr-4 text-gray-700 whitespace-pre-line leading-relaxed scrollbar-thin scrollbar-thumb-(--color-purple) scrollbar-track-transparent">
               {fullContent || content}
             </div>
           </div>

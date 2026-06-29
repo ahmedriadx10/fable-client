@@ -33,7 +33,7 @@ const WriterDashboardHome = async () => {
       </section>
 
       {/* Writer Sales History Section */}
-      <section className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+      <section className="bg-white rounded-2xl border max-h-150 overflow-y-auto scrollbar-thumb-(--color-primary)  border-gray-100 shadow-sm p-6">
         <h2 className="text-xl font-semibold text-gray-800 mb-6">Recent Book Sales & Revenue</h2>
         <WriterSalesHistory salesData={writerSalesHistoryData} />
       </section>

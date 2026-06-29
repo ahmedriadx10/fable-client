@@ -34,7 +34,7 @@ const UserDashboardHome = async () => {
       </section>
 
       {/* Purchase History Section */}
-      <section className="bg-white rounded-2xl border max-h-125 overflow-y-scroll scrollbar-thumb-(--color-primary) border-gray-100 shadow-sm p-6">
+      <section className="bg-white rounded-2xl border max-h-125 overflow-y-auto scrollbar-thumb-(--color-primary) border-gray-100 shadow-sm p-6">
         <h2 className="text-xl font-semibold text-gray-800 mb-6">Recent Purchases</h2>
         <UserPurchaseHistory purchaseData={userPurchaseData} />
       </section>

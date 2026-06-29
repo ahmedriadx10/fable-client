@@ -55,7 +55,7 @@ const UserPurchaseHistory = ({ purchaseData }) => {
                   <Table.Row key={bookIdStr} className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
                     {/* Cover Image */}
                     <Table.Cell className="p-4">
-                      <div className="relative w-[45px] h-[65px] rounded shadow-md overflow-hidden bg-gray-100">
+                      <div className="relative w-11.25 h-16.25 rounded shadow-md overflow-hidden bg-gray-100">
                         <Image
                           src={book.coverImage || "https://placehold.co/45x65"}
                           alt={book.bookName || "Ebook Cover"}

@@ -56,7 +56,7 @@ bookName:title
       },
 
       mode: 'payment',
-      success_url: `${origin}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
     });
     return NextResponse.redirect(session.url, 303)
   } catch (err) {

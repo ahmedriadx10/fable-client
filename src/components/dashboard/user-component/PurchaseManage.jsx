@@ -5,7 +5,7 @@ import Link from "next/link";
 const PurchaseManage = ({ purchaseData }) => {
   console.log("user purchase data", purchaseData);
 
-  // সরাসরি আইএসও ডেট স্ট্রিং ফরম্যাট করার ফাংশন
+ 
   const formatDate = (dateString) => {
     if (!dateString) return "N/A";
     
@@ -24,8 +24,8 @@ const PurchaseManage = ({ purchaseData }) => {
             <Table.Header className={''}>
               <Table.Column isRowHeader className=" rounded-bl-none text-gray-400 font-semibold uppercase text-xs tracking-wider p-4">COVER</Table.Column>
               <Table.Column className="text-gray-400 font-semibold uppercase text-xs tracking-wider p-4">EBOOK TITLE</Table.Column>
-              <Table.Column className="text-gray-400 font-semibold uppercase text-xs tracking-wider p-4">AUTHOR</Table.Column>
-              <Table.Column className="text-gray-400 font-semibold uppercase text-xs tracking-wider p-4">PURCHASE DATE</Table.Column>
+              {/* <Table.Column className="text-gray-400 font-semibold uppercase text-xs tracking-wider p-4">AUTHOR</Table.Column> */}
+              {/* <Table.Column className="text-gray-400 font-semibold uppercase text-xs tracking-wider p-4">PURCHASE DATE</Table.Column> */}
               <Table.Column className="text-gray-400 font-semibold uppercase text-xs tracking-wider p-4">PRICE</Table.Column>
               <Table.Column className=" rounded-br-none text-gray-400 font-semibold uppercase text-xs tracking-wider p-4 text-center">ACTIONS</Table.Column>
             </Table.Header>
@@ -35,7 +35,7 @@ const PurchaseManage = ({ purchaseData }) => {
                 const bookIdStr = book._id?.$oid || book._id;
                 
                 return (
-                  <Table.Row key={bookIdStr} className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
+                  <Table.Row key={book?._id} className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors">
                     {/* Cover Image */}
                     <Table.Cell className="p-4">
                       <div className="relative w-[45px] h-[65px] rounded shadow-md overflow-hidden bg-gray-100">
@@ -55,15 +55,15 @@ const PurchaseManage = ({ purchaseData }) => {
                       {book.bookName}
                     </Table.Cell>
 
-                    {/* Author Name */}
+                    {/* Author Name
                     <Table.Cell className="p-4 text-gray-500 text-sm">
                       {book.authorName}
-                    </Table.Cell>
+                    </Table.Cell> */}
 
                     {/* Purchase Date */}
-                    <Table.Cell className="p-4 text-gray-500 text-sm">
+                    {/* <Table.Cell className="p-4 text-gray-500 text-sm">
                       {formatDate(book.createdAt)}
-                    </Table.Cell>
+                    </Table.Cell> */}
 
                     {/* Price */}
                     <Table.Cell className="p-4 font-semibold text-gray-800 text-sm">

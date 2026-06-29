@@ -12,7 +12,7 @@ const Footer = () => {
   if (path?.startsWith('/dashboard')) {
     return null;
   }
-if(path.startsWith('/payment-success')){
+if(path.startsWith('/success')){
   return null
 }
 

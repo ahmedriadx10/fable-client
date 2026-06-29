@@ -28,7 +28,7 @@ export default async function PaymentSuccessPage({ searchParams }) {
 
   if (status === 'complete') {
     // মেটাডাটা এবং পেমেন্ট ইনটেন্ট থেকে ডেটা ডিস্ট্রাকচারিং
-    const price = metadata?.price ? parseFloat(metadata.price).toFixed(2) : '0.00'
+    const price = metadata?.price ? parseFloat(metadata?.price) : '0.00'
     const bookId = metadata?.bookId
     const authorName = metadata?.authorName || 'Unknown Author'
     const coverImage = metadata?.coverImage || '/placeholder-book.jpg' // একটি ডিফল্ট ইমেজ পাথ দিয়ে রাখতে পারো
@@ -37,7 +37,8 @@ export default async function PaymentSuccessPage({ searchParams }) {
 const authorId=metadata?.authorId
 const userId=metadata?.userId
 const userName=metadata?.userName
-await paymentSuccessDataAdd({userId,bookId,authorId,authorName,coverImage,bookName,transactionId,price,userName})
+ paymentSuccessDataAdd({userId,bookId,authorId,authorName,coverImage,bookName,transactionId,price,userName}).catch(err => 
+  console.error("Database save failed:", err))
 
     return (
       <main className="min-h-screen bg-[#F8FAFC] flex flex-col items-center justify-center p-4 antialiased">

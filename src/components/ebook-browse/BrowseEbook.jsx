@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import SearchFilterManage from "./SearchFilterManage";
 import EbookCardsContainer from "./EbookCardsContainer";
 
-const BrowseEbook = ({ booksData }) => {
+const BrowseEbook = ({ booksData,availableGenres }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -67,6 +67,7 @@ const BrowseEbook = ({ booksData }) => {
           setMaxPrice={setMaxPrice}
           sortBy={sortBy}
           setSortBy={setSortBy}
+          availableGenres={availableGenres}
         />
 
         {/* বুক কাউন্ট বার */}

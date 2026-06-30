@@ -1,5 +1,6 @@
 import BrowseEbook from "@/components/ebook-browse/BrowseEbook";
 import { getEbookData } from "@/lib/api/EbookData";
+import { getAvailableGenres } from "@/lib/api/Genres";
 
 const BrowseEbooksPage =async ({searchParams}) => {
 
@@ -12,14 +13,15 @@ const queryInstance=new URLSearchParams(searchQuery)
 const queryString=queryInstance.toString()
 
 const booksData=await getEbookData(queryString)
-
+const availableGenres=await getAvailableGenres()
+console.log('available genres is here:',availableGenres)
 
 
 return (
     <section>
 
 <section>
-  <BrowseEbook booksData={booksData}/>
+  <BrowseEbook booksData={booksData} availableGenres={availableGenres}/>
 </section>
     </section>
   );

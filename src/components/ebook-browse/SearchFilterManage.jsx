@@ -8,10 +8,10 @@ const SearchFilterManage = ({
   genre, setGenre,
   minPrice, setMinPrice,
   maxPrice, setMaxPrice,
-  sortBy, setSortBy
+  sortBy, setSortBy,availableGenres
 }) => {
   
-  const genres = ["All Ebooks", "Science Fiction",'Fantasy', "Sci-Fi", "Classic", "Self-Help", "Romance", "Memoir", "Poetry"];
+  const genres = [{genre:'All Ebooks'},...availableGenres,] || [{genre:"All Ebooks"}, {genre:"Science Fiction"},{genre:'Fantasy'}, {genre:"Sci-Fi"}, {genre:"Classic"}, {genre:"Self-Help"}, {genre:"Romance"}, {genre:"Memoir"}, {genre:"Poetry"}];
   
   const sortOptions = [
     { id: "Nf", label: "Newest First" },
@@ -92,11 +92,11 @@ const SearchFilterManage = ({
                 <ListBox className="p-0">
                   {genres.map((g) => (
                     <ListBox.Item 
-                      key={g} 
-                      id={g} 
+                      key={g.genre} 
+                      id={g.genre} 
                       className="text-xs font-medium text-gray-700 hover:bg-[#6D28D9] hover:text-white rounded-lg px-3 py-2 cursor-pointer transition-colors"
                     >
-                      <span>{g}</span>
+                      <span>{g.genre}</span>
                     </ListBox.Item>
                   ))}
                 </ListBox>

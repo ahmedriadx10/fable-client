@@ -13,7 +13,7 @@ const EbookCardsContainer = ({ booksData = [] }) => {
   }
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-6">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 py-8  gap-6">
       {booksData.map((book) => (
         <EbookCard key={book._id?.$oid || book._id} book={book} />
       ))}

@@ -21,7 +21,7 @@ return (
     <section>
 
 <section>
-  <BrowseEbook booksData={booksData} availableGenres={availableGenres}/>
+  <BrowseEbook booksData={booksData.books} totalBooks={booksData.totalBooks} availableGenres={availableGenres}/>
 </section>
     </section>
   );

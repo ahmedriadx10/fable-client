@@ -16,7 +16,7 @@ const AdminDashboardHome = async () => {
   };
 
   return (
-    <section className="p-6 bg-slate-50 min-h-screen space-y-6">
+    <section className="p-6  min-h-screen space-y-6">
       <div>
         <h1 className="text-3xl font-bold text-slate-800">Analytics Overview</h1>
         <p className="text-sm text-slate-500 mt-1">Real-time performance tracking for Fable's publishing ecosystem.</p>

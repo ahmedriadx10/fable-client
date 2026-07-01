@@ -95,7 +95,7 @@ const AdminDashboardAnalytics = ({ monthlySales, popularGenres }) => {
                   className="w-3 h-3 rounded-full shrink-0" 
                   style={{ backgroundColor: COLORS[index % COLORS.length] }} 
                 />
-                <span className="text-slate-600 font-medium truncate max-w-[140px]">
+                <span className="text-slate-600 font-medium truncate max-w-35">
                   {item.genre}
                 </span>
               </div>

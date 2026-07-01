@@ -16,17 +16,17 @@ const HeroHybridBanner = () => {
 
   const slidesData = [
     {
-      image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80&w=1500",
+      image: "/images/banner_image_3.avif",
       tag: "Welcome to Fable World",
       desc: "Step into a world of limitless imagination. Read, share, and connect with original creators worldwide."
     },
     {
-      image: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&q=80&w=1500",
+      image: "/images/banner_image_1.avif",
       tag: "Discover Magical Stories",
       desc: "Explore a vast collection of magical fables, enchanting stories, and digital ebooks written by original creators."
     },
     {
-      image: "https://images.unsplash.com/photo-1513001900722-370f803f498d?auto=format&fit=crop&q=80&w=1500",
+      image: "/images/banner_image_2.avif",
       tag: "Share Your Imagination",
       desc: "Join our community of book lovers and writers. Publish your own fables and build your audience today!"
     }
@@ -43,7 +43,7 @@ const HeroHybridBanner = () => {
 
   return (
     <section className="w-full bg-[#fafafa]">
-      <div className="w-full h-[500px] md:h-[600px] overflow-hidden relative group">
+      <div className="w-full h-125 md:h-150 overflow-hidden relative group">
         
         <Swiper
           modules={[Autoplay, EffectFade, Pagination]}
@@ -65,7 +65,7 @@ const HeroHybridBanner = () => {
           className="w-full h-full custom-swiper"
         >
           {slidesData.map((slide, index) => (
-            <SwiperSlide key={index} className="w-full h-full relative">
+            <SwiperSlide key={index} className="w-full h-full  relative">
               
               {/* ব্যাকগ্রাউন্ড ইমেজ */}
               <Image 
@@ -78,10 +78,10 @@ const HeroHybridBanner = () => {
               />
               
               {/* হালকা ডার্ক ওভারলে */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#111827]/85 via-[#111827]/40 to-transparent z-10"></div>
+              <div className="absolute inset-0 bg-linear-to-r from-[#111827] via-[#111827]/40 to-transparent z-10"></div>
               
               {/* কন্টেন্ট লেয়ার */}
-              <div className="absolute inset-0 z-20 flex items-center">
+              <div className="absolute inset-0 z-20 flex  items-center ">
                 
                 {/* এখানকার ট্রিক: animate প্রোপার্টিতে আমরা কন্ডিশন দিয়েছি। 
                   যদি এই স্লাইডের ইনডেক্স আর আমাদের activeIndex মিল হয়, কেবল তখনই ফ্রেমার মোশন "visible" অ্যানিমেশন চালাবে, 
@@ -93,7 +93,7 @@ const HeroHybridBanner = () => {
                   variants={{
                     visible: { transition: { staggerChildren: 0.15 } }
                   }}
-                  className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-start space-y-6 text-white"
+                  className="w-full max-w-7xl  mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-start space-y-6 text-white"
                 >
                   
                   {/* ব্যাজ */}
@@ -110,7 +110,7 @@ const HeroHybridBanner = () => {
                     className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-none"
                   >
                     Discover & Read <br />
-                    <span className="bg-gradient-to-r from-white via-[#8b5cf6] to-[#6d28d9] bg-clip-text text-transparent">
+                    <span className="bg-linear-to-r from-white via-[#8b5cf6] to-[#6d28d9] bg-clip-text text-transparent">
                       Original Ebooks
                     </span>
                   </motion.h1>
@@ -127,7 +127,7 @@ const HeroHybridBanner = () => {
                   <motion.div variants={fadeInUpVariants} className="pt-2">
                     <Link 
                       href="/browse-ebooks"
-                      className="inline-block px-8 py-4 text-base sm:text-lg font-bold text-white bg-[#6d28d9] hover:bg-[#8b5cf6] rounded-xl shadow-md transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#8b5cf6]"
+                      className="inline-block px-8 py-3 text-base sm:text-lg font-bold text-white bg-[#6d28d9] hover:bg-[#6d28d9]/80 rounded-xl shadow-md transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#8b5cf6]"
                     >
                       Browse Ebooks
                     </Link>

@@ -7,6 +7,7 @@ import { ImBook } from "react-icons/im";
 import { FiEdit3 } from "react-icons/fi"; 
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
+import { updateUserRoleOnServer } from "@/lib/actions/UserRoleSelection";
 
 
 const RoleSelection = () => {
@@ -15,27 +16,46 @@ const RoleSelection = () => {
   const router = useRouter();
 
   const handleConfirmSelection = async () => {
-    const result = await authClient.updateUser(
-      {
-        role: selectedRole,
-      },
-      {
-        onRequest: () => {
-          setLoading(true);
-        },
 
-        onSuccess: () => {
-          setLoading(false);
-          toast.success("Role updated successfully");
-          router.push("/");
-        },
-      },
-    );
+    setLoading(true)
+    
 
-    if (result?.error) {
-      setLoading(false);
-      toast.error("Failed to update role try again");
+    // const result = await authClient.updateUser(
+    //   {
+    //     role: selectedRole,
+    //   },
+    //   {
+    //     onRequest: () => {
+    //       setLoading(true);
+    //     },
+
+    //     onSuccess: () => {
+    //       setLoading(false);
+    //       toast.success("Role updated successfully");
+    //       router.push("/");
+    //     },
+    //   },
+    // );
+
+    // if (result?.error) {
+    //   setLoading(false);
+    //   toast.error("Failed to update role try again");
+    //   console.log('error',result?.error)
+    // }
+
+
+    const result = await updateUserRoleOnServer(selectedRole);
+
+    setLoading(false);
+
+    if (result?.success) {
+      toast.success("Role updated successfully");
+      router.push("/");
+    } else if (result?.error) {
+      toast.error(result.error || "Failed to update role, try again");
+      console.log('error', result.error);
     }
+
   };
 
   return (

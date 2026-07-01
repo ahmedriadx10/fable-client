@@ -45,6 +45,9 @@ const BrowseEbook = ({ booksData,availableGenres,totalBooks }) => {
     return pages;
   };
 
+  const startItem = (page - 1) * perPage + 1;
+  const endItem = Math.min(page * perPage, totalItems);
+
   useEffect(() => {
     const params = new URLSearchParams();
 
@@ -104,6 +107,8 @@ console.log('page update test',page)
           sortBy={sortBy}
           setSortBy={setSortBy}
           availableGenres={availableGenres}
+          page={page}
+          setPage={setPage}
         />
 
         {/* বুক কাউন্ট বার */}
@@ -119,8 +124,11 @@ console.log('page update test',page)
 
 {/* pagination is here */}
 
-{totalPages > 1 && <div >
-   <Pagination className="justify-center">
+{totalItems  && <div className='mt-5' >
+   <Pagination className="justify-between">
+         <Pagination.Summary>
+              Showing {startItem}-{endItem} of {totalItems} results
+            </Pagination.Summary>
         <Pagination.Content>
           <Pagination.Item>
             <Pagination.Previous isDisabled={page === 1} onPress={() => setPage((p) => p - 1)}>

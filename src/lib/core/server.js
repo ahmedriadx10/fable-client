@@ -1,6 +1,6 @@
 "use server";
 
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { auth } from "../auth";
 import { headers } from "next/headers";
 
@@ -67,10 +67,17 @@ export const ebookDetailsFetch = async (path) => {
 };
 
 const handleStatusCode = (response) => {
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
   if (response.status === 401) {
     redirect("/unauthorized");
   } else if (response.status === 403) {
     redirect("/forbidden");
+  }
+  if (response.status === 404) {
+    notFound();
   }
 
   return response.json();

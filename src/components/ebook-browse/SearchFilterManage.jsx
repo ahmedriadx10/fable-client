@@ -8,7 +8,8 @@ const SearchFilterManage = ({
   genre, setGenre,
   minPrice, setMinPrice,
   maxPrice, setMaxPrice,
-  sortBy, setSortBy,availableGenres
+  sortBy, setSortBy,availableGenres,
+  page,setPage
 }) => {
   
   const genres = [{genre:'All Ebooks'},...availableGenres,] || [{genre:"All Ebooks"}, {genre:"Science Fiction"},{genre:'Fantasy'}, {genre:"Sci-Fi"}, {genre:"Classic"}, {genre:"Self-Help"}, {genre:"Romance"}, {genre:"Memoir"}, {genre:"Poetry"}];
@@ -34,6 +35,7 @@ const SearchFilterManage = ({
     setMinPrice("");
     setMaxPrice("");
     setSortBy("");
+    setPage(1);
   };
 
   return (
@@ -56,7 +58,10 @@ const SearchFilterManage = ({
           <input
             type="text"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) =>
+              { setSearch(e.target.value)
+                setPage(1)
+              }}
             placeholder="Search by title, author, or genre..."
             className="w-full pl-3 bg-transparent text-gray-800 text-sm outline-none placeholder-gray-400"
           />
@@ -77,7 +82,10 @@ const SearchFilterManage = ({
             
             <Select 
               selectedKey={genre} 
-              onSelectionChange={(key) => setGenre(key)}
+              onSelectionChange={(key) => {
+                setGenre(key)
+setPage(1)
+              }}
             >
               <Select.Trigger className="w-40 flex items-center justify-between bg-slate-50 text-gray-700 border border-gray-200 rounded-xl py-2 px-3 text-xs font-semibold hover:border-gray-300 min-h-9 transition-all">
                 <Select.Value>
@@ -112,7 +120,10 @@ const SearchFilterManage = ({
                 type="number"
                 placeholder="Min"
                 value={minPrice}
-                onChange={(e) => setMinPrice(e.target.value)}
+                onChange={(e) => {
+                  setMinPrice(e.target.value)
+                  setPage(1)
+                }}
                 className="w-12 bg-transparent text-center text-xs font-semibold outline-none text-gray-700 placeholder-gray-400"
               />
               <span className="text-gray-300 mx-1 text-xs">-</span>
@@ -120,7 +131,10 @@ const SearchFilterManage = ({
                 type="number"
                 placeholder="Max"
                 value={maxPrice}
-                onChange={(e) => setMaxPrice(e.target.value)}
+                onChange={(e) => {
+                  setMaxPrice(e.target.value)
+                  setPage(1)
+                }}
                 className="w-12 bg-transparent text-center text-xs font-semibold outline-none text-gray-700 placeholder-gray-400"
               />
               <button className="bg-[#6D28D9] text-white p-1.5 rounded-lg ml-2 hover:bg-[#5B21B6] transition-colors">
@@ -137,7 +151,10 @@ const SearchFilterManage = ({
             
             <Select 
               selectedKey={sortBy} 
-              onSelectionChange={(key) => setSortBy(key)}
+              onSelectionChange={(key) =>{
+                setSortBy(key)
+                setPage(1)
+              } }
             >
               <Select.Trigger className="w-44 flex items-center justify-between bg-slate-50 text-gray-700 border border-gray-200 rounded-xl py-2 px-4 text-xs font-semibold hover:border-gray-300 min-h-9 transition-all">
                 <Select.Value>

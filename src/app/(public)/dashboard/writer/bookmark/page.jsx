@@ -9,7 +9,7 @@ const WriterBookmarkPage = async () => {
 console.log(bookmarkData)
   return (
     <div className="min-h-screen bg-slate-50/50 p-6 md:p-10">
-      <div className="max-w-7xl mx-auto lg:mx-0">
+      <div className=" mx-auto lg:mx-0">
         {/* Header Section */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-slate-900 tracking-tight">My Bookmarks</h1>

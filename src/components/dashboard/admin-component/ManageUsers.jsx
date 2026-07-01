@@ -52,7 +52,7 @@ const ManageUsers = ({ users, totalUser, currentAdminId }) => {
         <Table.ScrollContainer>
           <Table.Content
             aria-label="Admin User Management Table"
-            className="min-w-[800px]"
+            className="min-w-200"
           >
             <Table.Header>
               <Table.Column

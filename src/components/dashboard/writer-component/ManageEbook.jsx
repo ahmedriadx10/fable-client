@@ -19,10 +19,10 @@ const ManageEbook = ({ writerEbooksData, user }) => {
     const result = await writerStatusUpdate(id, { status: nextStatus });
   };
 
-  // ২. এডিট হ্যান্ডলার
-  const handleEdit = (id) => {
-    console.log(`Edit clicked for book ID: ${id}`);
-  };
+  // // ২. এডিট হ্যান্ডলার
+  // const handleEdit = (id) => {
+  //   console.log(`Edit clicked for book ID: ${id}`);
+  // };
 
   // ৩. ডিলিট হ্যান্ডলার
   const handleDelete =async (id) => {

@@ -23,7 +23,9 @@ if(result?.modifiedCount>0){
 
   return toast.success(`Ebook status updated to ${nextStatus}!`);
 }
-
+else if ( result?.acknowledged && result?.modifiedCount===0 ){
+  return toast.error(`Ebook status is already ${nextStatus}. No changes made.`);
+}
 toast.error('Failed to update ebook status !')
 
   };

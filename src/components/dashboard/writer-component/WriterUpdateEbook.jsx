@@ -49,10 +49,10 @@ const WriterUpdateEbook = ({ children, ebookData, user }) => {
 
       const data = await response.json();
 
-      console.log("upload respose", data);
+      // console.log("upload respose", data);
       if (data.success) {
         setImagePreview(data.data.url);
-        console.log("image preview", data.data.url);
+        // console.log("image preview", data.data.url);
       } else {
         toast.error("Image upload failed! Please try again.");
       }
@@ -117,15 +117,19 @@ const WriterUpdateEbook = ({ children, ebookData, user }) => {
 
     if (ebookUpdateResult?.modifiedCount>0) {
       toast.success("Ebook updated successfully!");
-      setFormData({
-        title: "",
-        summary: "",
-        content: "",
-        genre: "",
-        price: "",
-      });
-      setImagePreview(null);
+      // setFormData({
+      //   title: "",
+      //   summary: "",
+      //   content: "",
+      //   genre: "",
+      //   price: "",
+      // });
+      // setImagePreview(null);
 
+      return;
+    }
+    else if(ebookUpdateResult?.acknowledged && ebookUpdateResult?.modifiedCount===0){
+      toast.error("No changes were made to the ebook.");
       return;
     }
 

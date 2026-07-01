@@ -30,7 +30,7 @@ const PurchaseEbookPage = async () => {
   }
 
   return (
-    <div className="p-6 max-w-7xl mx-auto lg:mx-0">
+    <div className="p-6 mx-auto lg:mx-0">
       {/* Header section identical to the design image */}
       <div className="mb-6">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Purchased Ebooks</h1>
